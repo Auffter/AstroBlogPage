@@ -1,15 +1,12 @@
 ---
+import MainLayout from "../layouts/MainLayout.astro";
+const obj = {
+	name: "asd",
+	age: 18,
+	fav: ["lol", "cs", "valo"]
+}
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<MainLayout title="Index Page">
+	<h1> This is the index page </h1>
+</MainLayout>
