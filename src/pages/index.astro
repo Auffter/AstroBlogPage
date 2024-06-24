@@ -1,25 +1,12 @@
 ---
-// Component import
 import MainLayout from "../layouts/MainLayout.astro";
-import PostCard from "../components/PostCard.astro";
-
-// Utils import
-import { formatBlogPosts } from "../js/utils";
-
-const allPost = await Astro.glob("./blog/*.md")
-const formattedPosts = formatBlogPosts(allPost, {
-	limit: 3
-});
+const obj = {
+	name: "asd",
+	age: 18,
+	fav: ["lol", "cs", "valo"]
+}
 ---
 
 <MainLayout title="Index Page">
-	<p>Index page</p>
-	<!-- <section class="container" aria-label="Blog Posts">
-		<h2 class="h1">New Blog Posts</h2>
-		<div class="post-container">
-			{
-				formattedPosts.map((post) => <PostCard frontmatter={post.frontmatter} url={post.url} tagType="h3" />)
-			}
-		</div>
-	</section> -->
+	<h1> This is the index page </h1>
 </MainLayout>
