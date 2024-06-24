@@ -1,0 +1,54 @@
+---
+// Components import
+import MainLayout from "../../layouts/MainLayout.astro";
+import PostCard from "../../components/PostCard.astro";
+
+// Utils
+import { slugify, formatBlogPosts } from "../../js/utils";
+
+const { authorName, posts } = Astro.props;
+
+// Dynamic routes for authors
+export async function getStaticPaths() { 
+    // Get all posts and sort them
+    const allPost = await Astro.glob("../blog/*.md")
+    const formattedPosts = formatBlogPosts(allPost);
+    
+     // Create array with all unique authors
+    const allAuthor = [...new Set (
+        formattedPosts.map((post) => post.frontmatter.author).flat())
+    ];
+    
+    // Map throught all authors
+    return allAuthor.map((author) => {
+        // Loop through all posts and create array of post of matching authors 
+        const authorPosts = formattedPosts.filter((post) => post.frontmatter.author === author);
+
+        // From getStaticPaths() return
+        return {
+            // Url to the author with slugified endroute
+            params: {author: slugify(author)},
+            
+            // Props with author name and his/her posts 
+            props: {
+                authorName: author,
+                posts: authorPosts,
+            }
+        }
+    })
+}
+---
+
+<MainLayout title={`Posts by ${authorName}`}>
+    <section class="container" aria-label={`Posts by ${authorName}`}>
+        <h1 class="h1">Posts by {authorName}</h1>
+        <div class="post-container">
+            {
+                // Display all posts returned from getStaticPaths()
+                posts.map((post) => (
+                    <PostCard frontmatter={post.frontmatter} url={post.url} tagType="h2" />
+                ))
+            }
+        </div>
+    </section>
+</MainLayout>
