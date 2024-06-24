@@ -1,0 +1,19 @@
+---
+// Utils
+import { formatBlogPosts, slugify } from "../js/utils";
+
+// Post import
+const allPost = await Astro.glob("../pages/blog/*.md")
+const formattedPosts = formatBlogPosts(allPost);
+
+const uniqueAuthors = [...new Set(formattedPosts.map((post) => post.frontmatter.author))]
+---
+<ul>
+     {
+        uniqueAuthors.map((author) => 
+        <li class="author-list">
+            <a href={`./author/${slugify(author)}`} class="badge">{author}</a>
+         </li>
+         )
+     }
+</ul>

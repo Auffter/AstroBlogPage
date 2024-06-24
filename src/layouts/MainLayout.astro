@@ -15,7 +15,9 @@ const {title="Default Title", description="Page made with Astro framework"} = As
     <MainHead title={title} description={description} />
     <body>
         <Nav />
-        <slot>Default text</slot>
+        <main>
+            <slot>Default text</slot>
+        </main>
         <Footer />
     </body>
 </html>
